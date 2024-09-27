@@ -35,7 +35,7 @@ begin
 
       CEP         := Req.Params.Field('id').AsString;
       URL_ViaCEP  :='https://viacep.com.br/ws/'+CEP+'/json/';
-      URL_APICEP  :='https://cdn.apicep.com/file/apicep/'+CEP+'.json';
+      URL_APICEP  :='https://cdn.apicep.com/file/apicep/'+Copy(CEP,1,5)+'-'+Copy(CEP,6,3)+'.json';
       UR_AWS      :='https://cep.awesomeapi.com.br/json/'+CEP;
 
       try

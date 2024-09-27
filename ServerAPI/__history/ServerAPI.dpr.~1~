@@ -1,25 +1,33 @@
 program ServerAPI;
 {$APPTYPE CONSOLE}
 {$R *.res}
+
 uses
   Horse,
   System.SysUtils,
-  System.JSON,IdHTTP,IdSSLOpenSSL,IdSSLOpenSSLHeaders,
-  System.Classes;
+  IdHTTP,IdSSLOpenSSL,IdSSLOpenSSLHeaders;
+
 var
-  HTTP : TIdHttp;
+  HTTP: TIdHttp;
   objHTTPIOHandler: TIdSSLIOHandlerSocketOpenSSL;
-  JSONRead: String;
+  JSONRead,
   URL_ViaCEP,
   URL_APICEP,
-  UR_AWS: String;
+  UR_AWS,
   CEP: String;
 
 begin
+
   {$IFDEF MSWINDOWS}
   IsConsole := False;
   ReportMemoryLeaksOnShutdown := True;
   {$ENDIF}
+
+    THorse.Get('/test',
+    procedure(Req: THorseRequest; Res: THorseResponse)
+    begin
+      Res.Send('ok');
+    end);
 
   THorse.Get('/cep/:id',
     procedure(Req: THorseRequest; Res: THorseResponse)
@@ -65,7 +73,7 @@ begin
           Res.Send(JSONRead)
         else
           Res.Send('"Error": "Status Code: '+IntToStr(HTTP.ResponseCode)+'"}');
-
+          Writeln('Status code response: '+IntToStr(HTTP.ResponseCode)+' to the query: '+CEP);
       finally
         FreeAndNil(HTTP);
         FreeAndNil(objHTTPIOHandler);
@@ -78,6 +86,5 @@ begin
       Writeln(Format('Server is runing on %s:%d', [THorse.Host, THorse.Port]));
       Readln;
     end);
-
 
 end.

@@ -4,8 +4,8 @@ object FPrincipal: TFPrincipal
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsDialog
   Caption = 'Constula CEP'
-  ClientHeight = 269
-  ClientWidth = 266
+  ClientHeight = 276
+  ClientWidth = 264
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -90,9 +90,6 @@ object FPrincipal: TFPrincipal
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      ExplicitLeft = 0
-      ExplicitTop = 19
-      ExplicitWidth = 205
     end
   end
   object BtnClose: TButton

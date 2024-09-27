@@ -18,7 +18,6 @@ type
     FRua: string;
     FUF: string;
     FError: string;
-    JSONString: string;
     JSONObject: TJSONObject;
     JsonValue: TJSONValue;
     procedure SetBairro(const Value: string);
@@ -99,27 +98,32 @@ begin
 
           JSONObject  := TJSONObject.ParseJSONValue(JSONRead) as TJSONObject;
           Result      := TProcess.Create;
-
           Result.Error:= '';
-
           try
-            Result.FCEP     := JSONObject.GetValue('cep').ToString;
-            Result.FRua     := JSONObject.GetValue('logradouro').ToString;
-            Result.FBairro  := JSONObject.GetValue('bairro').ToString;
-            Result.FCidade  := JSONObject.GetValue('localidade').ToString;
-            Result.FUF      := JSONObject.GetValue('uf').ToString;
+            Result.CEP     := JSONObject.GetValue('cep').ToString;
+            Result.Rua     := JSONObject.GetValue('logradouro').ToString;
+            Result.Bairro  := JSONObject.GetValue('bairro').ToString;
+            Result.Cidade  := JSONObject.GetValue('localidade').ToString;
+            Result.UF      := JSONObject.GetValue('uf').ToString;
           except
             try
-              Result.FCEP     := JSONObject.GetValue('cep').ToString;
-              Result.FRua     := JSONObject.GetValue('address_name').ToString;
-              Result.FBairro  := JSONObject.GetValue('district').ToString;
-              Result.FCidade  := JSONObject.GetValue('city').ToString;
-              Result.FUF      := JSONObject.GetValue('state').ToString;
+              Result.CEP     := JSONObject.GetValue('cep').ToString;
+              Result.Rua     := JSONObject.GetValue('address_name').ToString;
+              Result.Bairro  := JSONObject.GetValue('district').ToString;
+              Result.Cidade  := JSONObject.GetValue('city').ToString;
+              Result.UF      := JSONObject.GetValue('state').ToString;
             except
-              Result.Error:= 'CEP não encontrado.';
+              try
+                Result.CEP     := JSONObject.GetValue('code').ToString;
+                Result.Rua     := JSONObject.GetValue('address').ToString;
+                Result.Bairro  := JSONObject.GetValue('district').ToString;
+                Result.Cidade  := JSONObject.GetValue('city').ToString;
+                Result.UF      := JSONObject.GetValue('state').ToString;
+              except
+                Result.Error:= 'CEP não encontrado.';
+              end;
             end;
           end;
-
        except
           on E: Exception do
             Result.Error:= 'Erro: ' + E.Message
@@ -175,7 +179,6 @@ begin
             Result:= http.Get(URLx) = 'ok';
           except
           end;
-
        except
        end;
     finally
