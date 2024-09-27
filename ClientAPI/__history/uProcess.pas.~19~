@@ -1,0 +1,142 @@
+unit uProcess;
+
+interface
+
+uses  System.SysUtils,System.JSON,IdHTTP,
+      System.Classes, System.Variants,
+      IdSSLOpenSSL,IdSSLOpenSSLHeaders,
+      System.IOUtils;
+
+type
+  TProcess = class
+  private
+    URLx: String;
+    JSONRead: String;
+    JsonToSend: TStringStream;
+    ArrayJSON  : TJSONArray;
+    FBairro: string;
+    FCEP: string;
+    FCidade: string;
+    FRua: string;
+    FUF: string;
+    FError: string;
+    procedure SetBairro(const Value: string);
+    procedure SetCEP(const Value: string);
+    procedure SetCidade(const Value: string);
+    procedure SetRua(const Value: string);
+    procedure SetUF(const Value: string);
+    procedure SetError(const Value: string);
+  public
+    property CEP: string read FCEP write SetCEP;
+    property Rua: string read FRua write SetRua;
+    property Bairro: string read FBairro write SetBairro;
+    property Cidade: string read FCidade write SetCidade;
+    property UF: string read FUF write SetUF;
+    property Error: string read FError write SetError;
+    function SendRequest(const cep:String): TProcess;
+    function ClearResult(const Text:String): String;
+  end;
+
+var
+  http : TIdHttp;
+  objHTTPIOHandler: TIdSSLIOHandlerSocketOpenSSL;
+
+implementation
+
+{ TProcess }
+
+function TProcess.ClearResult(const Text: String): String;
+begin
+  Result:= StringReplace(Text,'"','',[rfReplaceAll, rfIgnoreCase]);
+end;
+
+function TProcess.SendRequest(const cep: String): TProcess;
+var
+  JSONString: string;
+  JSONObject: TJSONObject;
+  JsonValue: TJSONValue;
+begin
+
+    try
+       try
+          if not(Assigned(objHTTPIOHandler)) then
+            objHTTPIOHandler  := TIdSSLIOHandlerSocketOpenSSL.Create(nil);
+
+          if not(Assigned(http)) then
+            http:= TIdHttp.Create(nil);
+
+          http.Request.Method                     := 'POST';
+          http.Response.KeepAlive                 := True;
+          http.Request.UserAgent                  := 'Mozilla/3.0 (compatible; Indy Library)';
+          http.Request.Accept                     := 'text/html,application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
+          http.HTTPOptions                        := [hoForceEncodeParams];
+          http.ConnectTimeout                     := 60 * 1000;
+          http.ReadTimeout                        := 5 * 60 * 1000;
+          http.Request.ContentType                := 'application/x-www-form-urlencoded';
+          http.Request.CharSet                    := 'utf-8';
+          http.Request.Connection                 := 'keep-alive';
+          http.HandleRedirects                    := True;
+          objHTTPIOHandler                        := TIdSSLIOHandlerSocketOpenSSL.Create();
+          objHTTPIOHandler.ReadTimeout            := 5 * 60 * 1000;
+          objHTTPIOHandler.SSLOptions.Method      := sslvTLSv1_2;
+          objHTTPIOHandler.SSLOptions.SSLVersions := [sslvTLSv1, sslvTLSv1_1, sslvTLSv1_2];
+          http.IOHandler                          := objHTTPIOHandler;
+          URLx                                    := 'http://localhost:9000/cep/'+cep;
+
+          JSONRead:= http.Get(URLx);
+
+          JSONObject  := TJSONObject.ParseJSONValue(JSONRead) as TJSONObject;
+          Result      := TProcess.Create;
+
+          Result.FCEP     := JSONObject.GetValue('cep').ToString;
+          Result.FRua     := JSONObject.GetValue('logradouro').ToString;
+          Result.FBairro  := JSONObject.GetValue('bairro').ToString;
+          Result.FCidade  := JSONObject.GetValue('localidade').ToString;
+          Result.FUF      := JSONObject.GetValue('uf').ToString;
+
+       except
+          on E: Exception do
+            Result.Error:= 'Erro: ' + E.Message
+       end;
+    finally
+      FreeAndNil(JSONObject);
+      FreeAndNil(JsonValue);
+      FreeAndNil(http);
+      FreeAndNil(objHTTPIOHandler);
+    end;
+
+
+
+end;
+
+procedure TProcess.SetBairro(const Value: string);
+begin
+  FBairro := Value;
+end;
+
+procedure TProcess.SetCEP(const Value: string);
+begin
+  FCEP := Value;
+end;
+
+procedure TProcess.SetCidade(const Value: string);
+begin
+  FCidade := Value;
+end;
+
+procedure TProcess.SetError(const Value: string);
+begin
+  FError := Value;
+end;
+
+procedure TProcess.SetRua(const Value: string);
+begin
+  FRua := Value;
+end;
+
+procedure TProcess.SetUF(const Value: string);
+begin
+  FUF := Value;
+end;
+
+end.

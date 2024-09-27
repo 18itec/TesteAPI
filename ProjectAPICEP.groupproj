@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{09C5D321-FC1E-415C-B31C-D0A4E7E902F7}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="ServerAPI\ServerAPI.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ClientAPI\ClientAPI.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ServerAPI">
+        <MSBuild Projects="ServerAPI\ServerAPI.dproj"/>
+    </Target>
+    <Target Name="ServerAPI:Clean">
+        <MSBuild Projects="ServerAPI\ServerAPI.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ServerAPI:Make">
+        <MSBuild Projects="ServerAPI\ServerAPI.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ClientAPI">
+        <MSBuild Projects="ClientAPI\ClientAPI.dproj"/>
+    </Target>
+    <Target Name="ClientAPI:Clean">
+        <MSBuild Projects="ClientAPI\ClientAPI.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ClientAPI:Make">
+        <MSBuild Projects="ClientAPI\ClientAPI.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ServerAPI;ClientAPI"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ServerAPI:Clean;ClientAPI:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ServerAPI:Make;ClientAPI:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

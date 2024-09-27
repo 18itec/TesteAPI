@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/01/31 17:57:13.000.668,=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/02/09 17:43:07.000.759,=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 12:24:02.000.175,=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/02/17 12:09:24.000.855,=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/02/17 12:09:52.000.792,=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/05/21 11:27:35.000.566,=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/06/28 15:39:33.000.150,=C:\Users\admin\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.pas</Transaction>
+    <Transaction>2024/06/28 15:39:33.000.416,=C:\Users\admin\Documents\Embarcadero\Studio\Projects\ServerConst1.pas</Transaction>
+    <Transaction>2024/09/26 16:17:03.819,=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/09/26 16:17:32.712,C:\TesteAPI\ClientAPI\uClienteAPI.dfm=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2024/09/26 16:17:32.712,C:\TesteAPI\ClientAPI\uClienteAPI.pas=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/09/26 16:17:42.691,C:\TesteAPI\ClientAPI\ClientAPI.dproj=C:\Users\admin\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2024/09/26 16:24:51.940,=C:\TesteAPI\ClientAPI\Unit1.pas</Transaction>
+    <Transaction>2024/09/26 16:25:16.865,C:\TesteAPI\ClientAPI\uProcess.pas=C:\TesteAPI\ClientAPI\Unit1.pas</Transaction>
+    <Transaction>2024/09/26 16:25:33.541,C:\TesteAPI\ClientAPI\ClientAPI.dproj=C:\TesteAPI\ClientAPI\ClientAPI.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
