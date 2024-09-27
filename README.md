@@ -52,3 +52,7 @@ Interface do Usuário: Apresenta um campo para digitação do CEP e um botão "Consu
 Lógica de Negócios: Ao clicar no botão, realiza uma requisição HTTP para a API HORSE, passando o CEP informado como parâmetro, que por sua vez utiliza APIs de terceiros para consultar o CEP informado.
 
 Tratamento da Resposta: Analisa a resposta da API e exibe as informações detalhadas do CEP caso seja localizado.
+
+Desenvolvido por
+Heber Cinti
+(18)99752-8707
